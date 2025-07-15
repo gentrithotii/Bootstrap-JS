@@ -5,6 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Roboto Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+
+
 </head>
 
 <body>
@@ -13,8 +32,45 @@
         Header
     </header>
 
-    <main>
-        Main Content
+    <main class="container-fluid  bg-danger py-5 ">
+
+        <!-- Form -->
+        <form class="container-sm bg-primary position-relative py-3 px-5">
+
+            <h1 class="text-center">MyTodo App</h1>
+
+            <section>
+                <label for="todo-title" class="form-label">Todo title</label>
+                <input type="text" class="form-control" id="todo-title" placeholder="Title here">
+                <label for="exampleFormControlTextarea1" class="form-label">Todo description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </section>
+
+
+            <div class="row g-3">
+                <div class="col">
+                    <label>Due Date</label>
+                    <input type="datetime-local" class="form-control" aria-label="due-date">
+                </div>
+                <div class="col">
+                    <label>Assign to Person</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+
+            <section>
+                <label for="formFileSm" class="form-label">Attachments</label>
+                <input class="form-control form-control-sm" id="formFileSm" type="file">
+            </section>
+            <button type="submit" class="btn btn-info my-3 d-flex ms-auto">+ Add todo</button>
+
+        </form>
+
     </main>
 
     <footer>
