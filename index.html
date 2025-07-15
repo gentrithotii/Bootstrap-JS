@@ -32,12 +32,12 @@
         Header
     </header>
 
-    <main class="container-fluid  bg-danger py-5 ">
+    <main class="container-fluid py-5 " style="background-color: rgb(198, 195, 195);">
+        <h1 class="text-center  pb-5">MyTodo App</h1>
 
         <!-- Form -->
-        <form class="container-sm bg-primary position-relative py-3 px-5 rounded shadow card">
+        <form class="container  position-relative py-4 px-4 rounded shadow card">
 
-            <h1 class="text-center">MyTodo App</h1>
 
             <section>
                 <label for="todo-title" class="form-label">Todo title</label>
@@ -63,10 +63,14 @@
                 </div>
             </div>
 
-            <section>
+            <div class="mb-3">
                 <label for="formFileSm" class="form-label">Attachments</label>
-                <input class="form-control form-control-sm" id="formFileSm" type="file">
-            </section>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" id="formFileSm" type="file">
+                    <button type="button" class="btn btn-outline-secondary" aria-label="Remove attachment">✕</button>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-info my-3 d-flex ms-auto">+ Add todo</button>
 
         </form>
