@@ -22,7 +22,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
-
+    <!--My custom script-->
+    <script src="index.js"></script>
 
 </head>
 
@@ -36,25 +37,23 @@
         <h1 class="text-center  pb-5">MyTodo App</h1>
 
         <!-- Form -->
-        <form class="container  position-relative py-2 px-3 rounded shadow card">
-
+        <form onsubmit="addTodoToList(event)" class="container  position-relative py-2 px-3 rounded shadow card">
 
             <section>
                 <label for="todo-title" class="form-label pt-2">Todo title</label>
                 <input type="text" class="form-control" id="todo-title" placeholder="Title here">
-                <label for="exampleFormControlTextarea1" class="form-label pt-2">Todo description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                <label for="todo-description" class="form-label pt-2">Todo description</label>
+                <textarea class="form-control" id="todo-description" rows="5"></textarea>
             </section>
-
 
             <div class="row g-2 pt-2">
                 <div class="col-sm ">
-                    <label>Due Date</label>
-                    <input type="datetime-local" class="form-control" aria-label="due-date">
+                    <label for="todo-due-date">Due Date</label>
+                    <input type="datetime-local" class="form-control" id="todo-due-date" aria-label="due-date">
                 </div>
                 <div class="col">
-                    <label>Assign to Person</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <label for="assign-to-person">Assign to Person</label>
+                    <select class="form-select" id="assign-to-person" aria-label="Default select example">
                         <option selected>--Select Person--</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
@@ -64,47 +63,62 @@
             </div>
 
             <div class="mb-3 pt-2">
-                <label for="formFileSm" class="form-label">Attachments</label>
+                <label for="todo-file" class="form-label">Attachments</label>
                 <div class="input-group input-group-sm">
-                    <input class="form-control" id="formFileSm" type="file">
+                    <input class="form-control" id="todo-file" type="file">
                     <button type="button" class="btn btn-outline-secondary" aria-label="Remove attachment">✕</button>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary my-3 d-flex ms-auto">+ Add todo</button>
+            <button type="submit" value="Submit" class="btn btn-primary my-3 d-flex ms-auto">+ Add todo</button>
 
         </form>
 
+        <section class="container mt-4 px-0">
+            <div class="card shadow-sm rounded">
 
-        <section class="container   mt-4 px-3 rounded shadow card">
-            <h1>Todos</h1>
-        </section>
-
-        <!-- Todo Item -->
-        <section class="container py-3  px-3 rounded shadow card">
-
-            <div class="card" style="width: 100;">
-
-                <div class="card-body">
-
-                    <div>
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Todo description</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                <!-- Head Card -->
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Todos</h5>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-filter"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-sort-down"></i>
+                        </button>
                     </div>
+                </div>
 
-                    <div>
-                        <a>Created: 2025-07-01</a>
-                        <button class="btn btn-outline-success"><i class="bi bi-check"></i></button>
-                        <button class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+                <!-- Todo Item -->
+                <div class="card-body border-top">
+                    <div class="d-flex justify-content-between align-items-start">
+
+                        <!-- Left side -->
+                        <div>
+                            <h6 class="mb-1">Example Todo</h6>
+                            <p class="mb-2 text-muted">Description goes here</p>
+                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                <small class="text-muted"><i class="bi bi-calendar"></i> Due: 2025-07-10</small>
+                                <span class="badge bg-info text-white"><i class="bi bi-person-fill"></i> John Doe</span>
+                                <span class="badge bg-dark">📎 2 attachments</span>
+                            </div>
+                        </div>
+
+                        <!-- Right side -->
+                        <div class="text-end">
+                            <small class="text-muted d-block mb-2">Created: 2025-07-01</small>
+                            <div class="btn-group">
+                                <button class="btn btn-outline-success btn-sm"><i class="bi bi-check"></i></button>
+                                <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>
+
                     </div>
-
                 </div>
 
             </div>
-
         </section>
 
     </main>
