@@ -1,4 +1,5 @@
 const todoListItems = [];
+let selectedFiles = [];
 
 function dateFormat() {
   const currentDate = new Date();
@@ -6,6 +7,7 @@ function dateFormat() {
     .toString()
     .padStart(2, "0")}-${currentDate.getDate().toString().padStart(2, "0")}`;
 }
+
 function addTodoToList(event) {
   event.preventDefault();
 
@@ -13,9 +15,6 @@ function addTodoToList(event) {
   const todoDescription = document.getElementById("todo-description").value;
   const todoDueDate = document.getElementById("todo-due-date").value;
   const todoPerson = document.getElementById("assign-to-person").value;
-  const todoFile = document.getElementById("todo-file").value;
-
-  console.log(typeof todoDueDate);
 
   if (todoTitle !== "" || todoDescription !== "" || todoDueDate !== "") {
     const todoObject = {
@@ -24,7 +23,7 @@ function addTodoToList(event) {
       todoDueDate: todoDueDate,
       todoPerson: todoPerson,
       todoCreatedAt: dateFormat(),
-      todoFile: todoFile,
+      todoFiles: [...selectedFiles],
     };
 
     todoListItems.push(todoObject);
@@ -32,6 +31,7 @@ function addTodoToList(event) {
 
   displayTodoList();
   addDeleteListeners();
+  clearFiles();
 }
 
 function displayTodoList() {
@@ -39,39 +39,72 @@ function displayTodoList() {
   todoList.innerHTML = "";
 
   todoListItems.forEach((todo, position) => {
+    const fileCount = todo.todoFiles?.length || 0;
+    const fileListHtml =
+      fileCount > 0
+        ? `
+        <span class="badge bg-dark">📎 ${fileCount} attachment${
+            fileCount !== 1 ? "s" : ""
+          }</span>
+        <ul class="mb-0 ps-3">
+          ${todo.todoFiles.map((file) => `<li>${file.name}</li>`).join("")}
+        </ul>`
+        : `<span class="badge bg-secondary">No attachments</span>`;
+
     const html = `
-    <div class="card-body border-top">
-      <div class="d-flex justify-content-between align-items-start">
-        <div>
-          <h6 class="mb-1">${todo.todoTitle}</h6>
-          <p class="mb-2 text-muted">${todo.todoDescription}</p>
-          <div class="d-flex flex-wrap align-items-center gap-2">
-            <small class="text-muted"><i class="bi bi-calendar"></i> Due: ${
-              todo.todoDueDate
-            }</small>
-            <span class="badge bg-info text-white"><i class="bi bi-person-fill"></i> ${
-              todo.todoPerson
-            }</span>
-            <span class="badge bg-dark">📎 ${todo.todoFile} attachment${
-      todo.todoFile > 1 ? "s" : ""
-    }</span>
+      <div class="card-body border-top">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h6 class="mb-1">${todo.todoTitle}</h6>
+            <p class="mb-2 text-muted">${todo.todoDescription}</p>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <small class="text-muted"><i class="bi bi-calendar"></i> Due: ${todo.todoDueDate}</small>
+              <span class="badge bg-info text-white"><i class="bi bi-person-fill"></i> ${todo.todoPerson}</span>
+            </div>
+            <div class="mt-2">${fileListHtml}</div>
           </div>
-        </div>
-        <div class="text-end">
-          <small class="text-muted d-block mb-2">Created: ${
-            todo.todoCreatedAt
-          }</small>
-          <div class="btn-group">
-            <button class="btn btn-outline-success btn-sm"><i class="bi bi-check"></i></button>
-            <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i></button>
-            <button class="btn btn-outline-danger btn-sm" data-index="${position}"><i class="bi bi-trash"></i></button>
+          <div class="text-end">
+            <small class="text-muted d-block mb-2">Created: ${todo.todoCreatedAt}</small>
+            <div class="btn-group">
+              <button class="btn btn-outline-success btn-sm"><i class="bi bi-check"></i></button>
+              <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-outline-danger btn-sm" data-index="${position}"><i class="bi bi-trash"></i></button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  `;
+    `;
     todoList.innerHTML += html;
   });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const fileInput = document.getElementById("todo-file");
+  const preview = document.getElementById("file-preview");
+
+  fileInput.addEventListener("change", () => {
+    for (const file of fileInput.files) {
+      selectedFiles.push(file);
+    }
+
+    preview.innerHTML = "";
+    selectedFiles.forEach((file, index) => {
+      const p = document.createElement("p");
+      p.textContent = file.name;
+      preview.appendChild(p);
+    });
+
+    fileInput.value = "";
+  });
+});
+
+function clearFiles() {
+  const fileInput = document.getElementById("todo-file");
+  const preview = document.getElementById("file-preview");
+
+  selectedFiles = [];
+  fileInput.value = "";
+  preview.innerHTML = "";
 }
 
 function addDeleteListeners() {
@@ -86,7 +119,6 @@ function addDeleteListeners() {
 
 function deleteItem(position) {
   todoListItems.splice(position, 1);
-  document.getElementById("todo-list").innerHTML = "";
   displayTodoList();
   addDeleteListeners();
 }

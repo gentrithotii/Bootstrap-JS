@@ -64,10 +64,10 @@
 
             <div class="mb-3 pt-2">
                 <label for="todo-file" class="form-label">Attachments</label>
-                <div class="input-group input-group-sm">
-                    <input class="form-control" id="todo-file" type="file">
-                    <button type="button" class="btn btn-outline-secondary" aria-label="Remove attachment">✕</button>
-                </div>
+                <input class="form-control" id="todo-file" type="file" multiple>
+                <button type="button" class="btn btn-sm btn-outline-secondary mt-2" onclick="clearFiles()">✕
+                    Clear</button>
+                <div id="file-preview" class="mt-2"></div>
             </div>
 
             <button type="submit" value="Submit" class="btn btn-primary my-3 d-flex ms-auto">+ Add todo</button>
